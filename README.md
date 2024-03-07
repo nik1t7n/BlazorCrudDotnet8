@@ -33,5 +33,13 @@ The project offers the following key functionalities:
 - **EditGame:** Update an existing game in the database.
 - **DeleteGame:** Delete a game record from the database.
 
+## Encapsulation and Abstractions
+- **Interface-Based Design:** The project utilizes interfaces such as `IGameService` and `IGameRepository` to define contracts for services and repositories. This interface-based design promotes encapsulation by hiding the implementation details behind well-defined interfaces.
+
+- **Dependency Inversion Principle:** By depending on abstractions (interfaces) rather than concrete implementations, the project adheres to the Dependency Inversion Principle. This principle states that high-level modules should not depend on low-level modules but should depend on abstractions.
+
+- **Flexibility and Extensibility:** Encapsulation through abstractions allows for easy extension and modification of the codebase. New implementations of services or repositories can be introduced by adhering to the existing interfaces, enabling flexibility in the system.
+
+
 ## Conclusion
 BlazorCrudDotnet8 Game Service is a demonstration of building a CRUD application using Blazor, .NET Core 8, and Entity Framework Core. The project showcases modern technologies, a structured architecture, interactive design, and essential functionalities for managing game data effectively.
