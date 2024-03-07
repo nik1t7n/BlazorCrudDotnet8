@@ -13,13 +13,16 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddControllers();
 
+// register HTTP client to send requests
 builder.Services.AddScoped(http => new HttpClient
 {
     BaseAddress = new Uri(builder.Configuration.GetSection("BaseUri").Value!),
 });
 
+// register our database context
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddScoped<IGameService, GameService>();
 

@@ -3,6 +3,9 @@
 @inject IGameService GameService
 @rendermode InteractiveAuto
 
+@* here we use WebAssembly rendering *@
+
+@* if there is no game - we create a new one. Otherwise we can edit already existing game *@
 @if (Id == null)
 {
     <h3>Create Game</h3>
@@ -12,11 +15,15 @@ else
     <h3>Edit @game.Name</h3>
 }
 
-@* FormName="editGame" - it is for SSR*@
+@* FormName="editGame" - it is for SSR (server-side rendering) *@
 <EditForm Model="game" OnSubmit="HandleSubmit">
     <label>Name</label>
+
+    @* displays the input field for the game name, associating it with the "Name" property of the "Game" object. *@
     <InputText @bind-Value="game.Name">@game.Name</InputText>
     <button type="submit" class="btn btn-success">Submit</button>
+
+    @* if there is already button - we can delete it *@
     @if (Id != null)
     {
         <button @onclick="DeleteGame" type="button" class="btn btn-danger">Delete</button>
@@ -32,8 +39,10 @@ else
 
     Game game { get; set; } = new Game { Name = string.Empty };
 
+    // overwriting this method which is called during component parameter setting
     protected override async Task OnParametersSetAsync()
     {
+        // if "Id" is not null
         if (Id.HasValue)
         {
             game = await GameService.GetGameById((int)Id);
@@ -55,6 +64,7 @@ else
 
     async Task DeleteGame()
     {
+        // we write (int) to convert from "int?" to "int"
         await GameService.DeleteGame((int)Id);
     }
 }

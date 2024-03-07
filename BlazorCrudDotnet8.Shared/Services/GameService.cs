@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorCrudDotnet8.Shared.Services
 {
+    // impementation of interface methods
     public class GameService : IGameService
     {
         private readonly DataContext _context;
@@ -23,6 +24,7 @@ namespace BlazorCrudDotnet8.Shared.Services
 
         public async Task<bool> DeleteGame(int id)
         {
+            // we are looking for sepcific game according to the id
             var dbGame = await _context.Games.FindAsync(id);
             if (dbGame != null)
             {
@@ -38,6 +40,7 @@ namespace BlazorCrudDotnet8.Shared.Services
             var dbGame = await _context.Games.FindAsync(id);
             if (dbGame != null)
             {
+                // assign new values instead of old ones
                 dbGame.Name = game.Name;
                 await _context.SaveChangesAsync();
                 return dbGame;
